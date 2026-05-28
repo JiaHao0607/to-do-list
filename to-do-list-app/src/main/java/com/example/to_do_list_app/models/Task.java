@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Task {
@@ -11,8 +13,16 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //Primary key generated
+    
+    @NotBlank(message = "Task description cannot be empty")
+    @Size(max = 16, message = "Task description total length cannot exceed 16 characters")
     private String task;
     private boolean completed;
+
+    //Create default constructor
+    public Task(){
+        
+    }
 
     //Create constructor
     public Task(String task, boolean completed){

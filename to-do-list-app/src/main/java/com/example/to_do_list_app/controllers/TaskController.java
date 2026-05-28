@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.to_do_list_app.models.Task;
 import com.example.to_do_list_app.services.TaskService;
 
+import jakarta.validation.Valid;
+
 @Controller
 @RequestMapping("/api/v1/tasks")
 public class TaskController {
@@ -23,7 +25,7 @@ public class TaskController {
     private TaskService taskService;
 
     @PostMapping("/")
-    public ResponseEntity<Task> createTask(@RequestBody Task task){
+    public ResponseEntity<Task> createTask(@Valid @RequestBody Task task){
         return ResponseEntity.ok(taskService.createNewTask(task));
     }
     
@@ -43,7 +45,7 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task){
+    public ResponseEntity<Task> updateTask(@PathVariable Long id, @Valid @RequestBody Task task){
         task.setId(id);
         return ResponseEntity.ok(taskService.updateTask(task));
     }
