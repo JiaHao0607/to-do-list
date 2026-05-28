@@ -40,6 +40,9 @@ public class TaskService {
 
     //Update task
     public Task updateTask(Task task){
+        if (!taskRepository.existsById(task.getId())) {
+            throw new IllegalArgumentException("Task with ID " + task.getId() + " does not exist.");
+        }
         return taskRepository.save(task);
     }
     
